@@ -21,6 +21,7 @@ if ( ! class_exists( 'TxToIT\OMO\Offer_CPT' ) ) {
 		public static function register_cpt() {
 			$offers_label_singular = Admin_Settings::get_option( 'offers_label_singular', 'omo_general', __( 'Offer', 'ofertasmall-ofertas' ) );
 			$offers_label_plural   = Admin_Settings::get_option( 'offers_label_plural', 'omo_general', __( 'Offers', 'ofertasmall-ofertas' ) );
+			$slug   = Admin_Settings::get_option( 'offers_label_plural', 'omo_general', __( 'Offers', 'ofertasmall-ofertas' ) );
 
 			$labels_arr      = apply_filters( 'omo_offer_labels', array(
 				'plural'   => $offers_label_plural,
@@ -57,7 +58,7 @@ if ( ! class_exists( 'TxToIT\OMO\Offer_CPT' ) ) {
 				'menu_icon'          => 'dashicons-chart-line',
 				'show_in_menu'       => true,
 				'query_var'          => true,
-				'rewrite'            => array( 'slug' => 'lojas' ),
+				'rewrite'            => array( 'slug' => 'ofertas' ),
 				'capability_type'    => 'post',
 				'has_archive'        => true,
 				'hierarchical'       => false,

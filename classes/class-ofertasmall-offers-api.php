@@ -27,7 +27,7 @@ if ( ! class_exists( 'TxToIT\OMO\Ofertasmall_Offers_API' ) ) {
 
 		public function get_offers( $args = array() ) {
 			$args = wp_parse_args( $args, array(
-				'id'           => null,
+				/*'id'           => null,
 				'nome'         => '',
 				'ativo'        => null,
 				'hasCategoria' => 1,
@@ -35,7 +35,7 @@ if ( ! class_exists( 'TxToIT\OMO\Ofertasmall_Offers_API' ) ) {
 				'pagina'       => null,
 				'quantidade'   => null,
 				'campo'        => 'id',
-				'ordem'        => 'asc',
+				'ordem'        => 'asc',*/
 			) );
 
 			$token = $this->args['token'];
@@ -43,6 +43,7 @@ if ( ! class_exists( 'TxToIT\OMO\Ofertasmall_Offers_API' ) ) {
 			$ch = curl_init( add_query_arg( $args, $this->url_get_lojas ) );
 
 			curl_setopt_array( $ch, array(
+				CURLOPT_FOLLOWLOCATION =>true,
 				CURLOPT_CUSTOMREQUEST  => 'GET',
 				CURLOPT_HTTPHEADER     => array(
 					"authorization: {$token}"

@@ -69,7 +69,6 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Settings' ) ) {
 
 					// Ofertas
 					array(
-						'name'    => 'offers_title',
 						'label'   => __( 'Offers', 'ofertasmall-ofertas' ),
 						'desc'    => '',
 						'type'    => 'title',
@@ -89,6 +88,27 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Settings' ) ) {
 						'type'    => 'text',
 						'default' => __( 'Offers', 'ofertasmall-ofertas' )
 					),
+					array(
+						'name'    => 'offers_rewrite_slug',
+						'label'   => __( 'URL', 'ofertasmall-ofertas' ),
+						'desc'    => __( 'Customizes the URL', 'ofertasmall-ofertas' ),
+						'type'    => 'text',
+						'default' => __( 'ofertas', 'ofertasmall-ofertas' )
+					),
+
+					// Ofertas Expiradas
+					/*array(
+						'label'   => __( 'Expired Offers', 'ofertasmall-ofertas' ),
+						'desc'    => '',
+						'type'    => 'title',
+					),
+					array(
+						'name'    => 'offers_expire_status',
+						'label'   => __( 'Status', 'ofertasmall-ofertas' ),
+						'desc'    => __( 'Status for expired offers', 'ofertasmall-ofertas' ),
+						'type'    => 'text',
+						'default' => __( 'Expired', 'ofertasmall-ofertas' )
+					),*/
 				),
 
 			);

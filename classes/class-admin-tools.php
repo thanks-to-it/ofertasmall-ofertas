@@ -37,12 +37,13 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Tools' ) ) {
 
 			$import = new Import( array(
 				'offers_post_type' => Offer_CPT::$post_type,
-				'offer_tax'       => Store_Tax::$taxonomy
+				'offer_tax'        => Store_Tax::$taxonomy
 			) );
 			$import->import_offers_from_offers_api( $stores_api );
 		}
 
-		public static function echo_style() {
+		public static function echo_style( $percentage = 0 ) {
+
 			?>
             <style>
                 .omo-progress-wrapper {
@@ -58,9 +59,9 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Tools' ) ) {
                     left: 0;
                     top: 0;
                     background: #cecece;
-                    width: '.$percentage_pretty.'%;
+                    width: <?php echo $percentage; ?>%;
                     height: 100%;
-                    transition:all 1s ease-in-out;
+                    transition: all 1s ease-in-out;
                 }
 
                 .omo-progress-value {
@@ -74,16 +75,16 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Tools' ) ) {
                     z-index: 2;
                 }
 
-                .omo-progress-label:after{
+                .omo-progress-label:after {
                     opacity: 0;
-                    content:url('https://media.giphy.com/media/EMspSu9w0djAA/giphy.gif');
+                    content: url('https://media.giphy.com/media/EMspSu9w0djAA/giphy.gif');
                     display: inline-block;
                     margin-left: 13px;
                     vertical-align: middle;
-                    transition:all 1s ease-in-out;
+                    transition: all 1s ease-in-out;
                 }
 
-                .omo-progress-label.progress:after{
+                .omo-progress-label.progress:after {
                     opacity: 1;
                 }
             </style>
@@ -105,8 +106,8 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Tools' ) ) {
                         };
                         jQuery.post(ajaxurl, data, function (response) {
                             count++;
-                            percent = Math.round(response.data.percent*100);
-                            if(percent>0 && percent<100){
+                            percent = Math.round(response.data.percent * 100);
+                            if (percent > 0 && percent < 100) {
                                 jQuery('.omo-progress-label').addClass('progress');
                             }
                             $('.omo-progress-bar').css('width', percent + '%');
@@ -117,7 +118,7 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Tools' ) ) {
                     omo_interval = setInterval(handle_interval, 3000);
 
                     function handle_interval() {
-                        if (percent < 100 && !no_queue && percent > 0 || count ==0) {
+                        if (percent < 100 && !no_queue && percent > 0 || count == 0) {
                             omo_call_ajax();
                         } else {
                             jQuery('.omo-progress-label').removeClass('progress');
@@ -132,12 +133,12 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Tools' ) ) {
 		public static function plugin_page() {
 			$import            = new Import( array(
 				'offers_post_type' => Offer_CPT::$post_type,
-				'offer_tax'       => Store_Tax::$taxonomy
+				'offer_tax'        => Store_Tax::$taxonomy
 			) );
 			$percentage        = $import->get_bkg_process_percentage();
 			$percentage_pretty = 100 * $percentage;
 
-			self::echo_style();
+			self::echo_style( $percentage_pretty );
 			self::show_background_process_progress();
 
 			echo '<form method="post">';

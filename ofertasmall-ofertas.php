@@ -17,7 +17,7 @@ __( 'Gets offers from ofertasmall API', 'ofertasmall-ofertas' );
 // Autoload
 require_once( "vendor/autoload.php" );
 
-// Initializes plugin
+// Initializes plugingit push -u origin master
 $plugin = \TxToIT\OMO\Core::get_instance();
 $plugin->set_args( array(
 	'plugin_file_path' => __FILE__,
@@ -36,3 +36,12 @@ $plugin->set_args( array(
 	),
 ) );
 $plugin->init();
+
+/*
+$file = 'https://crmall.generalshopping.com.br:8097/Api/store/image/bkxjNm5LU0RzQW5rdVNvUHZVSURkQT09';
+$extension = wp_get_image_mime($file);
+if(preg_match( '/(jpe?g|jpe|gif|png)\b/i', $extension, $matches )){
+	$dot_extension = '.'.$matches[0];
+	error_log(print_r($dot_extension,true));
+}
+*/

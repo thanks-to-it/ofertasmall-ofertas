@@ -106,7 +106,8 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 					$post_update_arr['ID'] = $post_id;
 					wp_update_post( $post_update_arr );
 					$this->import_terms( $offer, $post_id );
-					//$this->download_fotos( $offer, $post_id );
+					$this->download_fotos( $offer, $post_id );
+					$this->setup_schedule_post_expiration( $offer, $post_id );
 				}
 
 				/* Restore original Post Data */
@@ -114,12 +115,35 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 			} else {
 				$offer_wp_id = wp_insert_post( $this->get_post_update_array( $offer, $metas_to_save_with_prefix ) );
 				$this->import_terms( $offer, $offer_wp_id );
-				//$this->download_fotos( $offer, $offer_wp_id );
+				$this->download_fotos( $offer, $offer_wp_id );
+				$this->setup_schedule_post_expiration( $offer, $offer_wp_id );
+			}
+		}
+
+		public function setup_schedule_post_expiration( $offer, $offer_wp_id ) {
+			$despublicar_em        = isset( $offer['despublicar_em'] ) ? $offer['despublicar_em'] : null;
+			$despublicar_is_future = false;
+			if ( ! empty( $despublicar_em ) ) {
+				$date_despublicar_em = new \DateTime( $despublicar_em );
+
+				$date_now = new \DateTime();
+				if ( $date_despublicar_em > $date_now ) {
+					$despublicar_is_future = true;
+				}
+			}
+
+			wp_clear_scheduled_hook( 'omo_schedule_post_expiration' );
+
+			if ( $despublicar_is_future ) {
+				wp_schedule_single_event( $date_despublicar_em->getTimestamp(), 'omo_schedule_post_expiration', array( $offer_wp_id ) );
 			}
 		}
 
 		protected function download_fotos( $offer, $offer_wp_id ) {
-			$download   = filter_var( Admin_Settings::get_option( 'download_images', 'omo_general', 'on' ), FILTER_VALIDATE_BOOLEAN );
+			$download = filter_var( Admin_Settings::get_option( 'download_images', 'omo_general', 'on' ), FILTER_VALIDATE_BOOLEAN );
+			if ( ! $download ) {
+				return;
+			}
 			$photos_max = 5;
 
 			for ( $i = 1; $i <= $photos_max; $i ++ ) {
@@ -166,10 +190,11 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 				// Set variables for storage, fix file filename for query strings.
 				preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $file, $matches );
 				if ( ! $matches ) {
-					$image_type = exif_imagetype( $file );
-					if ( $image_type ) {
-						$fileextension = image_type_to_extension( $image_type );
-						$matches       = array( $fileextension );
+					$extension = wp_get_image_mime( $file );
+					if ( $extension !== false ) {
+						if ( preg_match( '/(jpe?g|jpe|gif|png)/i', $extension, $ext_matches ) ) {
+							$matches = array( '.' . $ext_matches[0] );
+						}
 					} else {
 						return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL' ) );
 					}
@@ -277,14 +302,32 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 		}
 
 		protected function get_post_update_array( $offer, $metas ) {
-			$publicar_em        = isset( $metas['publicar_em'] ) ? $metas['publicar_em'] : null;
+			$publicar_em        = isset( $offer['publicar_em'] ) ? $offer['publicar_em'] : null;
+			$date_now           = new \DateTime();
 			$publicar_is_future = false;
 			if ( ! empty( $publicar_em ) ) {
 				$date_publicar_em = new \DateTime( $publicar_em );
-				$date_now         = new \DateTime();
 				if ( $date_publicar_em > $date_now ) {
 					$publicar_is_future = true;
 				}
+			}
+
+			//$offer['despublicar_em'] = '2018-04-16 02:55:23';
+			$despublicar_em = isset( $offer['despublicar_em'] ) ? $offer['despublicar_em'] : null;
+			if ( ! empty( $despublicar_em ) ) {
+				$date_despublicar_em = new \DateTime( $despublicar_em );
+			}
+
+			$post_status = 'publish';
+			if ( $publicar_is_future ) {
+				$post_status = 'future';
+			}
+			if (
+				! empty( $despublicar_em ) &&
+				$date_despublicar_em <= $date_now
+			) {
+				$publicar_is_future = false;
+				$post_status        = sanitize_title( Admin_Settings::get_option( 'offers_expire_status', 'omo_general', __( 'Expired', 'ofertasmall-ofertas' ) ) );
 			}
 
 			return array(
@@ -292,8 +335,9 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 				'post_title'    => $offer['nome'],
 				'post_name'     => sanitize_title( $offer['nome'] ),
 				'post_date'     => empty( $publicar_em ) ? $offer['criado'] : $publicar_em,
-				'post_modified' => $offer['atualizado'],
-				'post_status'   => $publicar_is_future ? 'future' : 'publish',
+				'post_date_gmt' => empty( $publicar_em ) ? get_gmt_from_date( $offer['criado'] ) : get_gmt_from_date( $publicar_em ),
+				'post_modified' => empty( $publicar_em ) ? $offer['atualizado'] : $publicar_em,
+				'post_status'   => $post_status,
 				'meta_input'    => $metas
 			);
 		}
@@ -357,7 +401,6 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 				'hasCategoria' => 1,
 				'hasReserva'   => 1,
 			) );
-			//error_log( print_r( $offers, true ) );
 			if (
 				! is_array( $offers ) ||
 				( isset( $offers['success'] ) && ! filter_var( $offers['success'], FILTER_VALIDATE_BOOLEAN ) )
