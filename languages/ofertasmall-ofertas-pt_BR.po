@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newspaper Magazine\n"
 "POT-Creation-Date: 2018-04-17 22:37-0300\n"
-"PO-Revision-Date: 2018-04-17 22:43-0300\n"
+"PO-Revision-Date: 2018-04-17 22:51-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -53,7 +53,7 @@ msgstr "Ofertas"
 
 #: classes/class-admin-settings.php:79 classes/class-admin-settings.php:80
 msgid "Singular name"
-msgstr ""
+msgstr "Nome no singular"
 
 #: classes/class-admin-settings.php:82 classes/class-offer-cpt.php:22
 msgid "Offer"
@@ -61,7 +61,7 @@ msgstr "Oferta"
 
 #: classes/class-admin-settings.php:86 classes/class-admin-settings.php:87
 msgid "Plural name"
-msgstr ""
+msgstr "Nome no plural"
 
 #: classes/class-admin-settings.php:93
 msgid "URL"
@@ -69,7 +69,7 @@ msgstr ""
 
 #: classes/class-admin-settings.php:94
 msgid "Customizes the URL"
-msgstr ""
+msgstr "Personaliza a URL"
 
 #: classes/class-admin-settings.php:96
 msgid "ofertas"
