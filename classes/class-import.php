@@ -53,7 +53,8 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 				'nome',
 				'criado',
 				'atualizado',
-				'categorias'
+				'categorias',
+				'reservas'
 			) );
 		}
 
@@ -66,6 +67,7 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 		}
 
 		public function import_offer( $offer ) {
+			//$offer['despublicar_em'] = '2018-04-18 01:06:34';
 
 			//error_log(print_r($offer,true));
 

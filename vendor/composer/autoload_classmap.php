@@ -100,6 +100,7 @@ return array(
     'TxToIT\\OMO\\Core' => $baseDir . '/classes/class-core.php',
     'TxToIT\\OMO\\Custom_Admin_Settings' => $baseDir . '/classes/class-custom-settings-api.php',
     'TxToIT\\OMO\\Custom_Fields' => $baseDir . '/classes/class-custom-fields.php',
+    'TxToIT\\OMO\\Expired_Status' => $baseDir . '/classes/class-expired-status.php',
     'TxToIT\\OMO\\Import' => $baseDir . '/classes/class-import.php',
     'TxToIT\\OMO\\Import_Background_Process' => $baseDir . '/classes/class-import-background-process.php',
     'TxToIT\\OMO\\Ofertasmall_Offers_API' => $baseDir . '/classes/class-ofertasmall-offers-api.php',

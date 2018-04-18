@@ -115,6 +115,7 @@ class ComposerStaticInitc1d699b0ad29e7457553114facf263e9
         'TxToIT\\OMO\\Core' => __DIR__ . '/../..' . '/classes/class-core.php',
         'TxToIT\\OMO\\Custom_Admin_Settings' => __DIR__ . '/../..' . '/classes/class-custom-settings-api.php',
         'TxToIT\\OMO\\Custom_Fields' => __DIR__ . '/../..' . '/classes/class-custom-fields.php',
+        'TxToIT\\OMO\\Expired_Status' => __DIR__ . '/../..' . '/classes/class-expired-status.php',
         'TxToIT\\OMO\\Import' => __DIR__ . '/../..' . '/classes/class-import.php',
         'TxToIT\\OMO\\Import_Background_Process' => __DIR__ . '/../..' . '/classes/class-import-background-process.php',
         'TxToIT\\OMO\\Ofertasmall_Offers_API' => __DIR__ . '/../..' . '/classes/class-ofertasmall-offers-api.php',
