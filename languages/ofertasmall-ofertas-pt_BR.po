@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Newspaper Magazine\n"
-"POT-Creation-Date: 2018-04-17 22:37-0300\n"
-"PO-Revision-Date: 2018-04-17 22:51-0300\n"
+"POT-Creation-Date: 2018-04-18 23:15-0300\n"
+"PO-Revision-Date: 2018-04-18 23:15-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: tasks\n"
 "X-Poedit-SearchPathExcluded-2: vendor\n"
 
-#: classes/class-admin-settings.php:33 classes/class-admin-settings.php:122
+#: classes/class-admin-settings.php:33 classes/class-admin-settings.php:129
 #: classes/class-custom-fields.php:34
 msgid "WP Ofertas"
 msgstr ""
@@ -46,34 +46,13 @@ msgstr "Download das imagens"
 msgid "Downloads images on import"
 msgstr "Faz Download das imagens durante a importação"
 
-#: classes/class-admin-settings.php:72 classes/class-admin-settings.php:89
-#: classes/class-offer-cpt.php:23 classes/class-offer-cpt.php:24
-msgid "Offers"
-msgstr "Ofertas"
+#: classes/class-admin-settings.php:71
+msgid "Post Type"
+msgstr "Post Type"
 
-#: classes/class-admin-settings.php:79 classes/class-admin-settings.php:80
-msgid "Singular name"
-msgstr "Nome no singular"
-
-#: classes/class-admin-settings.php:82 classes/class-offer-cpt.php:22
-msgid "Offer"
-msgstr "Oferta"
-
-#: classes/class-admin-settings.php:86 classes/class-admin-settings.php:87
-msgid "Plural name"
-msgstr "Nome no plural"
-
-#: classes/class-admin-settings.php:93
-msgid "URL"
-msgstr ""
-
-#: classes/class-admin-settings.php:94
-msgid "Customizes the URL"
-msgstr "Personaliza a URL"
-
-#: classes/class-admin-settings.php:96
-msgid "ofertas"
-msgstr ""
+#: classes/class-admin-settings.php:72
+msgid "Offers Custom Post Type"
+msgstr "Custom Post Type das Ofertas"
 
 #: classes/class-admin-tools.php:22 classes/class-admin-tools.php:147
 #: classes/class-admin-tools.php:161
@@ -155,6 +134,14 @@ msgstr "A Api está funcionando. O processo de importação começou."
 #: classes/class-import.php:397
 msgid "You can navigate normally while the process continues"
 msgstr "Você pode navegar normalmente enquanto o processo continua"
+
+#: classes/class-offer-cpt.php:22
+msgid "Offer"
+msgstr "Oferta"
+
+#: classes/class-offer-cpt.php:23 classes/class-offer-cpt.php:24
+msgid "Offers"
+msgstr "Ofertas"
 
 #: classes/class-offer-cpt.php:40
 #, fuzzy
@@ -261,6 +248,18 @@ msgstr "Ajustes"
 #: ofertasmall-ofertas.php:31
 msgid "Import"
 msgstr "Importar"
+
+#~ msgid "Offers CPT"
+#~ msgstr "Post Type"
+
+#~ msgid "Singular name"
+#~ msgstr "Nome no singular"
+
+#~ msgid "Plural name"
+#~ msgstr "Nome no plural"
+
+#~ msgid "Customizes the URL"
+#~ msgstr "Personaliza a URL"
 
 #~ msgid "Description."
 #~ msgstr "Descrição."

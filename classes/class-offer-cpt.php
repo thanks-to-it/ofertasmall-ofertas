@@ -18,16 +18,21 @@ if ( ! class_exists( 'TxToIT\OMO\Offer_CPT' ) ) {
 
 		public static $post_type = 'ofertas';
 
+		public static function set_offers_cpt() {
+			$cpt             = Admin_Settings::get_option( 'offers_cpt', 'omo_general', 'ofertas' );
+			self::$post_type = sanitize_title( $cpt );
+		}
+
 		public static function register_cpt() {
 			$offers_label_singular = Admin_Settings::get_option( 'offers_label_singular', 'omo_general', __( 'Offer', 'ofertasmall-ofertas' ) );
 			$offers_label_plural   = Admin_Settings::get_option( 'offers_label_plural', 'omo_general', __( 'Offers', 'ofertasmall-ofertas' ) );
-			$slug   = Admin_Settings::get_option( 'offers_rewrite_slug', 'omo_general', __( 'Offers', 'ofertasmall-ofertas' ) );
+			$slug                  = Admin_Settings::get_option( 'offers_rewrite_slug', 'omo_general', __( 'Offers', 'ofertasmall-ofertas' ) );
 
-			$labels_arr      = apply_filters( 'omo_offer_labels', array(
+			$labels_arr = apply_filters( 'omo_offer_labels', array(
 				'plural'   => $offers_label_plural,
 				'singular' => $offers_label_singular,
 			) );
-			self::$post_type = apply_filters( 'omo_offer_slug', 'ofertas' );
+			//self::$post_type = apply_filters( 'omo_offer_slug', 'ofertas' );
 
 			$plural   = $labels_arr['plural'];
 			$singular = $labels_arr['singular'];

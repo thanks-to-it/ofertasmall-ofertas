@@ -66,9 +66,16 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Settings' ) ) {
 						'type'    => 'checkbox',
 						'default' => 'on'
 					),
+					array(
+						'name'    => 'offers_cpt',
+						'label'   => __( 'Post Type', 'ofertasmall-ofertas' ),
+						'desc'    => __( 'Offers Custom Post Type', 'ofertasmall-ofertas' ),
+						'type'    => 'text',
+						'default' => 'ofertas'
+					)
 
 					// Ofertas
-					array(
+					/*array(
 						'label'   => __( 'Offers', 'ofertasmall-ofertas' ),
 						'desc'    => '',
 						'type'    => 'title',
@@ -94,7 +101,7 @@ if ( ! class_exists( 'TxToIT\OMO\Admin_Settings' ) ) {
 						'desc'    => __( 'Customizes the URL', 'ofertasmall-ofertas' ),
 						'type'    => 'text',
 						'default' => __( 'ofertas', 'ofertasmall-ofertas' )
-					),
+					),*/
 
 					// Ofertas Expiradas
 					/*array(

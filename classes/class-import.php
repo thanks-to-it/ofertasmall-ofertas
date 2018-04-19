@@ -270,14 +270,25 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 					continue;
 				}
 				global $wpdb;
+
 				$result = $wpdb->get_var( $wpdb->prepare(
+					"
+					SELECT tm.term_id
+					FROM $wpdb->termmeta tm
+					JOIN $wpdb->term_taxonomy tt ON tm.term_id=tt.term_id
+					WHERE meta_key = %s AND meta_value = %s AND tt.taxonomy = %s
+					",
+					$categoria_meta_key, $term_categoria_id, $offer_tax
+				) );
+
+				/*$result = $wpdb->get_var( $wpdb->prepare(
 					"
 						SELECT term_id
 						FROM $wpdb->termmeta 
 						WHERE meta_key = %s AND meta_value = %s
 					",
 					$categoria_meta_key, $term_categoria_id
-				) );
+				) );*/
 
 				$categoria_nome = $categoria['nome'];
 				$term_args      = array();
