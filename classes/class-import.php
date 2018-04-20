@@ -21,9 +21,10 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 
 		public function __construct( $import_args = array() ) {
 			$import_args       = wp_parse_args( $import_args, array(
-				'db_key_prefix'    => '_omo_',
-				'offers_post_type' => '',
-				'offer_tax'        => ''
+				'db_key_prefix'        => '_omo_',
+				'stores_db_key_prefix' => '_oml_',
+				'offers_post_type'     => '',
+				'offer_tax'            => ''
 			) );
 			$this->import_args = $import_args;
 		}
@@ -69,8 +70,6 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 		public function import_offer( $offer ) {
 			//$offer['despublicar_em'] = '2018-04-18 01:06:34';
 
-			//error_log(print_r($offer,true));
-
 			// Remove unwanted custom fields
 			$metas_to_save = array_filter( $offer, array( $this, 'filter_unwanted_custom_fields' ), ARRAY_FILTER_USE_KEY );
 
@@ -110,6 +109,7 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 					$this->import_terms( $offer, $post_id );
 					$this->download_fotos( $offer, $post_id );
 					$this->setup_schedule_post_expiration( $offer, $post_id );
+					$this->save_store_id( $offer, $post_id );
 				}
 
 				/* Restore original Post Data */
@@ -119,6 +119,30 @@ if ( ! class_exists( 'TxToIT\OMO\Import' ) ) {
 				$this->import_terms( $offer, $offer_wp_id );
 				$this->download_fotos( $offer, $offer_wp_id );
 				$this->setup_schedule_post_expiration( $offer, $offer_wp_id );
+				$this->save_store_id( $offer, $offer_wp_id );
+			}
+		}
+
+		public function save_store_id( $offer, $offer_wp_id ) {
+			$custom_fields_prefix        = $this->import_args['db_key_prefix'];
+			$stores_custom_fields_prefix = $this->import_args['stores_db_key_prefix'];
+
+			$args = array(
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'post_type'      => 'lojas',
+				'post_status'    => 'any',
+				'meta_query'     => array(
+					array(
+						'key'   => "{$stores_custom_fields_prefix}id",
+						'value' => $offer['loja_id'],
+					)
+				)
+			);
+
+			$posts = get_posts( $args );
+			if ( is_array( $posts ) && count( $posts ) > 0 ) {
+				update_post_meta( $offer_wp_id, "{$custom_fields_prefix}loja_wp_id", $posts[0] );
 			}
 		}
 

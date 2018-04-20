@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newspaper Magazine\n"
 "POT-Creation-Date: 2018-04-18 23:15-0300\n"
-"PO-Revision-Date: 2018-04-18 23:15-0300\n"
+"PO-Revision-Date: 2018-04-19 00:15-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -144,17 +144,14 @@ msgid "Offers"
 msgstr "Ofertas"
 
 #: classes/class-offer-cpt.php:40
-#, fuzzy
-#| msgctxt "Store"
-#| msgid "Add New"
 msgctxt "Offer"
 msgid "Add New"
-msgstr "Adicionar nova"
+msgstr "Adicionar"
 
 #: classes/class-offer-cpt.php:41
 #, php-format
 msgid "Add New %s"
-msgstr "Adicionar nova %s"
+msgstr "Adicionar %s"
 
 #: classes/class-offer-cpt.php:42
 #, php-format
